@@ -70,6 +70,14 @@ void ded(int &b){   //去重
 	}
 } 
 
+/*返回[left, right]的随机数*/
+int randNext(int left, int right)
+{
+  static unsigned int seed = 0;
+  seed++;
+  srand((unsigned) time(NULL) + seed * seed);
+  return rand() % (right - left + 1) + left;
+}
 
 void ranProbability(){ //产生随机化组编译选项，返回一个指向结构体一元数组的指针，即产生的随机化组编译选项
 	
@@ -78,8 +86,8 @@ void ranProbability(){ //产生随机化组编译选项，返回一个指向结�
 		strcpy(all_compile[k].compile,str[k]);//将str中的字符串，复制给all_compile.compile
 	}
 
-	srand((unsigned)time(NULL)); //产生随机化的种子
-	x = rand()%214; //随机化产生一个x
+//	srand((unsigned)time(NULL)); //产生随机化的种子
+	x = randNext(0,213); //随机化产生一个x
 	int i,j,h,l,k,p; 
 	float sum,n,average; //average为概率的平均值,sum为所有编译选项概率的和
 	h=0;l=0;sum=0,k = 0;
@@ -116,7 +124,7 @@ void ranProbability(){ //产生随机化组编译选项，返回一个指向结�
 //				printf("highΪ��\n");
 				break;
 			}
-			ran_compile[k]=high_compile[rand()%214]; 
+			ran_compile[k]=high_compile[randNext(0,213)]; 
 //			printf("++++++%s-----%s\n",ran_compile[k].compile,"12344333222");
 			ded(k);
 		}
@@ -129,7 +137,7 @@ void ranProbability(){ //产生随机化组编译选项，返回一个指向结�
 //				printf("lowΪ��\n");
 				break;
 			}
-			ran_compile[p]=low_compile[rand()%214]; 
+			ran_compile[p]=low_compile[randNext(0,213)]; 
 //			printf("ran_[%d]++++++%s-----%s\n",p,ran_compile[p].compile,"12344333222");
 			ded(p);
 		}
@@ -139,7 +147,7 @@ void ranProbability(){ //产生随机化组编译选项，返回一个指向结�
 			if(high_compile[0].compile[0] == '\0'){
 				break;
 			}
-			ran_compile[k]=high_compile[rand()%214]; 
+			ran_compile[k]=high_compile[randNext(0,213)]; 
 			ded(k);
 		}
 	}
