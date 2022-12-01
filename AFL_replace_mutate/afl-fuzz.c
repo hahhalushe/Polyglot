@@ -42,6 +42,11 @@
 #include "alloc-inl.h"
 #include "hash.h"
 
+//[modify]  4start
+#include"ranopt.h"
+//#include"con.h"
+//[modify]  4end
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -72,6 +77,7 @@
 #include "../include/define.h"
 #include "../include/var_definition.h"
 #include "../include/typesystem.h"
+
 
 #if defined(__APPLE__) || defined(__FreeBSD__) || defined (__OpenBSD__)
 #  include <sys/sysctl.h>
@@ -5050,7 +5056,7 @@ static void show_stats(void) {
       u8  *in_buf, *out_buf, *orig_in, *ex_tmp, *eff_map = 0;
       u64 havoc_queued,  orig_hit_cnt, new_hit_cnt;
       u32 splice_cycle = 0, perf_score = 100, orig_perf, prev_cksum, eff_cnt = 1;
-      int skip_count = 0;
+
       u8  ret_val = 1, doing_det = 0;
 
       u8  a_collect[MAX_AUTO_EXTRA];
@@ -5202,6 +5208,7 @@ static void show_stats(void) {
       mutated_tree = g_mutator.mutate_all(ir_set);
       deep_delete(ir_set[ir_set.size()-1]);
       show_stats();
+      int skip_count = 0;
       stage_max = mutated_tree.size();
       stage_cur = 0;
       for(auto &ir: mutated_tree){
@@ -6461,6 +6468,10 @@ int main(int argc, char** argv) {
   struct timezone tz;
   memset_count_array();
 
+//[modify] 4add
+  ranProbability();
+//[modify] 4end
+
   SAYF(cCYA "afl-fuzz " cBRI VERSION cRST " by <lcamtuf@google.com>\n");
 
   doc_path = access(DOC_PATH, F_OK) ? "docs" : DOC_PATH;
@@ -6724,9 +6735,22 @@ int main(int argc, char** argv) {
     use_argv = argv + optind;
 
 
+
+// [modify] 4add
+printf("--------------------------\n");
+  char** p = add(x,use_argv);
+printf("+++++++++++++++++\n");
+//[modify] 4end
+
   do_libary_initialize();//[modify]
 
-  perform_dry_run(use_argv);
+/*Next line commented [modify] 4add*/
+//  perform_dry_run(use_argv);
+/*[modify] 4end*/
+
+// [modify] 4add
+perform_dry_run(p);
+//[modify] 4end
 
   cull_queue();
 
@@ -6766,6 +6790,14 @@ int main(int argc, char** argv) {
         queue_cur = queue_cur->next;
       }
 
+//[modify] 4add
+      if(has_new_bits(virgin_bits) != 0){
+        add_opt();
+      }else{
+        de_opt();
+      }
+//[modify] 4end
+
       show_stats();
 
       if (not_on_tty) {
@@ -6785,17 +6817,17 @@ int main(int argc, char** argv) {
       prev_queued = queued_paths;
 
       if (sync_id && queue_cycle == 1 && getenv("AFL_IMPORT_FIRST"))
+      
         sync_fuzzers(use_argv);
-
+      
     }
+     skipped_fuzz = fuzz_one(use_argv);
 
-    skipped_fuzz = fuzz_one(use_argv);
 
     if (!stop_soon && sync_id && !skipped_fuzz) {
       
       if (!(sync_interval_cnt++ % SYNC_INTERVAL))
         sync_fuzzers(use_argv);
-
     }
 
     if (!stop_soon && exit_1) stop_soon = 2;
