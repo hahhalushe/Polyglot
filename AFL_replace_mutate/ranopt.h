@@ -57,6 +57,28 @@ char reenable[95][50] = {"-falign-labels","-fno-branch-count-reg","-fno-caller-s
 	"-fno-tree-dse","-fno-tree-fre","-fno-tree-loop-distribute-patterns","-fno-tree-loop-vectorize","-fno-tree-partial-pre","-fno-tree-pre","-fno-tree-pta","-fno-tree-sink","-fno-tree-slp-vectorize","-fno-tree-slsr","-fno-tree-sra","-fno-tree-switch-conversion",
 	"-fno-tree-tail-merge","-fno-tree-ter","-fno-tree-vrp","-fno-unswitch-loops","-fno-var-tracking","-fno-var-tracking-assignments","-fno-web"};
 
+/*从文件中获取编译选项*/
+int Read()//函数将文件中的编译选项读取到数组中 
+{
+	FILE* fpread;
+	fpread = fopen("opt-O2.txt", "r");
+	if (fpread == NULL)//文件不存在 
+	{
+		printf("file is error.");
+		return -1;
+	}
+
+	
+	for (int i = 0; i < 214; i++)//文件存在将文件中数据读入到数组中 
+	{
+		fscanf(fpread, "%s",all_compile[i].compile);
+	}
+	
+	fclose(fpread);//关闭文件 
+    
+	return 0;
+}
+
 
 void ded(int &b){   //去重  
 	if(ran_compile[b].compile[0] == '\0'){
@@ -81,10 +103,12 @@ int randNext(int left, int right)
 
 void ranProbability(){ //产生随机化组编译选项，返回一个指向结构体一元数组的指针，即产生的随机化组编译选项
 	
+	Read();//函数将文件中的编译选项读取到数组中
+
 	//组编译选项数组初始化
-	for(int k = 0;k < 214;k++){
-		strcpy(all_compile[k].compile,str[k]);//将str中的字符串，复制给all_compile.compile
-	}
+	// for(int k = 0;k < 214;k++){
+	// 	strcpy(all_compile[k].compile,str[k]);//将str中的字符串，复制给all_compile.compile
+	// }
 
 //	srand((unsigned)time(NULL)); //产生随机化的种子
 	x = randNext(0,213); //随机化产生一个x
