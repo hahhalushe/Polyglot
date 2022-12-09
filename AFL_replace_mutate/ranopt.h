@@ -182,9 +182,9 @@ void add_opt() {
 
 	float n = ODD;
 		for(int i = 0;i < x;i++){
-			if(ran_compile[i].odds + n < 1){
+			// if(ran_compile[i].odds + n < 1){
 				ran_compile[i].odds += n;  //n是增加的概率
-			}
+			// }
 			
 		}
 	for(int j = 0;j < x;j++){
@@ -199,9 +199,9 @@ void add_opt() {
 void de_opt(){   
 	float s = ODD;
 	for(int i = 0;i < x;i++){
-		if(ran_compile[i].odds - s > 0){
+		// if(ran_compile[i].odds - s > 0){
 			ran_compile[i].odds -= s;  
-		}
+		// }
 	}
 	for(int j = 0;j < x;j++){
 		for(int i = 0;i < 214;i++){ 
