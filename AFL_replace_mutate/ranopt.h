@@ -87,7 +87,7 @@ void ranProbability(){ //产生随机化组编译选项，返回一个指向结�
 	for(j=0; j<N; j++){ //计算出所有编译选项概率(权重)的平均值
 		sum=sum + all_compile[j].odds;
 	}
-	average=sum/N;//概率的平均值
+	average=sum/(N+1);//概率的平均值
 
 	//以概率平均值为指标，将所有编译选项分为高概率和低概率两组
 	for(i=0; i<N; i++){
@@ -157,10 +157,7 @@ void add_opt() {
 
 	float n = ODD;
 		for(int i = 0;i < x;i++){
-			if(ran_compile[i].odds + n < 1){
 				ran_compile[i].odds += n;  //n是增加的概率
-			}
-			
 		}
 	for(int j = 0;j < x;j++){
 		for(int i = 0;i < N;i++){
@@ -174,9 +171,7 @@ void add_opt() {
 void de_opt(){   
 	float s = ODD;
 	for(int i = 0;i < x;i++){
-		if(ran_compile[i].odds - s > 0){
 			ran_compile[i].odds -= s;  
-		}
 	}
 	for(int j = 0;j < x;j++){
 		for(int i = 0;i < N;i++){ 
