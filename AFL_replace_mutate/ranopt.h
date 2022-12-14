@@ -10,8 +10,9 @@
 #include<iostream>
 using namespace std;
 
+#define N 221
+#define M 220
 #define ODD 0.01//增加/减少的概率
-#define N 213;
 //定义编译选项结构体
 typedef struct o_compile
 {
@@ -19,17 +20,17 @@ typedef struct o_compile
     float odds;//编译选项出现的概率
 } Compile;
 int x = 0;//随机产生的编译选项个数
-Compile all_compile[214]; //存放所有的编译选项
-Compile ran_compile[214]; //存放随机产生的x个编译选项 
-Compile high_compile[214]; //存放概率高的编译选项
-Compile low_compile[214]; //存放概率低的编译选项
+Compile all_compile[N]; //存放所有的编译选项
+Compile ran_compile[N]; //存放随机产生的x个编译选项 
+Compile high_compile[N]; //存放概率高的编译选项
+Compile low_compile[N]; //存放概率低的编译选项
 double acc = 0.0;
 int total = 1;
 /*从文件中获取编译选项*/
 int Read()//函数将文件中的编译选项读取到数组中 
 {
 	FILE* fpread;
-	fpread = fopen("/home/huan/Desktop/P/AFL_replace_mutate/1.txt", "r");
+	fpread = fopen("/home/cyd/桌面/编译选项/opt-O2.txt", "r");
 	if (fpread == NULL)//文件不存在
 	{
 		printf("\nfile is error.\n");
@@ -71,7 +72,7 @@ int randNext(int left, int right)
 void ranProbability(){ //产生随机化组编译选项，返回一个指向结构体一元数组的指针，即产生的随机化组编译选项
 
 	Read();//函数将文件中的编译选项读取到数组中
-	x = randNext(0,N); //随机化产生一个x
+	x = randNext(0,M); //随机化产生一个x
 	int f = 0;
 	int i,j,h,l,k,p; 
 	float sum,n,average; //average为概率的平均值,sum为所有编译选项概率的和
@@ -87,10 +88,10 @@ void ranProbability(){ //产生随机化组编译选项，返回一个指向结�
 	for(j=0; j<N; j++){ //计算出所有编译选项概率(权重)的平均值
 		sum=sum + all_compile[j].odds;
 	}
-	average=sum/(N+1);//概率的平均值
+	average=sum/N;//概率的平均值
 
 	//以概率平均值为指标，将所有编译选项分为高概率和低概率两组
-	for(i=0; i<N; i++){
+	for(i=0; i<M; i++){
 		if(all_compile[i].odds > average){
 			high_compile[h]=all_compile[i];
 			// printf("h=%d i=%d high++++++%s  all-----%s\n",h,i,high_compile[h].compile,all_compile[i].compile);
@@ -142,7 +143,7 @@ void ranProbability(){ //产生随机化组编译选项，返回一个指向结�
 				break;
 			}
 
-			f = randNext(0,N);
+			f = randNext(0,M);
 			// ran_compile[k]=high_compile[randNext(0,213)]; 
 			ran_compile[k]=high_compile[f];
 			// printf(" 3k = %d, rand = %d\n",k,f);
@@ -157,10 +158,13 @@ void add_opt() {
 
 	float n = ODD;
 		for(int i = 0;i < x;i++){
+			if(ran_compile[i].odds + n < 1){
 				ran_compile[i].odds += n;  //n是增加的概率
+			}
+			
 		}
 	for(int j = 0;j < x;j++){
-		for(int i = 0;i < N;i++){
+		for(int i = 0;i < M;i++){
 			if(strcmp(all_compile[i].compile,ran_compile[j].compile) == 0)	{
 				all_compile[i].odds = ran_compile[j].odds;
 			}
@@ -171,10 +175,12 @@ void add_opt() {
 void de_opt(){   
 	float s = ODD;
 	for(int i = 0;i < x;i++){
+		if(ran_compile[i].odds - s > 0){
 			ran_compile[i].odds -= s;  
+		}
 	}
 	for(int j = 0;j < x;j++){
-		for(int i = 0;i < N;i++){ 
+		for(int i = 0;i < M;i++){ 
 			if(strcmp(all_compile[i].compile,ran_compile[j].compile) == 0)	{
 				all_compile[i].odds = ran_compile[j].odds;
 			}
