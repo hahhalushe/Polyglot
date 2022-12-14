@@ -226,7 +226,7 @@ char** add(int m,char** argv0){
 	int x = 0;
 	int d = 0;
 	int disen = 0;
-	while(*p != '\0'){
+	while(*p != '\0'){ //打印arg0数组中的元素
 
 		x++;
 		cout<<"----------argv----------"<<endl;
@@ -235,7 +235,7 @@ char** add(int m,char** argv0){
 	}
 
 	//p = (char**)realloc(p_argv,sizeof(char*)*(disen+x+m+1));
-	p = (char**)realloc(p_argv,sizeof(char*)*(disen+x+m+1));
+	p = (char**)realloc(p_argv,sizeof(char*)*(disen+x+m+1));//分配内存
 	if(p == NULL){  
 		//argv0 = p;
 		printf("add error\n");
@@ -243,12 +243,12 @@ char** add(int m,char** argv0){
 	}
 	p_argv = p;
 	/*Allocate memory*/
-	for(int i = 0;i < (x+m);i++){
+	for(int i = 0;i < (x+m);i++){//分配内存
 		p_argv[i] = (char*)malloc(sizeof(char)*60);
 	}
 	p = argv0;
 /*add 3*/
-	while(*p != '\0'){
+	while(*p != '\0'){ //将argv0中的元素放入给p_argv
 		p_argv[d] = *p; 
 		d++;
 		p = p + 1;
@@ -257,7 +257,7 @@ char** add(int m,char** argv0){
 	// for(int i = x;i < disen+x;i++){
 	// 	p_argv[i] = reenable[i-x];
 	// }
-
+/*将随机产生编译选项 放入p_argv中*/
 	for (int i = x+disen; i < (disen+x+m); i++)
 	{
 		/* code */
@@ -269,12 +269,12 @@ char** add(int m,char** argv0){
 	}
 
 	
-
+//m 是argv0中的元素个数，x是随机产生编译选项的个数
 	printf("-------------over---------       m=%d x=%d x+m=%d\n",x,m,x+m);
 	p_argv[x+m+disen] = NULL;
 	p = p_argv;
 	x = 0;
-	while(*p != NULL){
+	while(*p != NULL){ //打印p_argv数组中的元素
 		printf("pp = %s\n",p_argv[x]);
 		x++;
 		p++;
