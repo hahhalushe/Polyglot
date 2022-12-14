@@ -11,6 +11,7 @@
 using namespace std;
 
 #define ODD 0.01//增加/减少的概率
+#define N 213;
 //定义编译选项结构体
 typedef struct o_compile
 {
@@ -35,7 +36,7 @@ int Read()//函数将文件中的编译选项读取到数组中
 		return -1;
 	}
 	
-	for (int i = 0; i < 213; i++)//文件存在将文件中数据读入到数组中 
+	for (int i = 0; i < N; i++)//文件存在将文件中数据读入到数组中 
 	{
 		fscanf(fpread, "%s",all_compile[i].compile);
 		// printf("11\n");
@@ -70,26 +71,26 @@ int randNext(int left, int right)
 void ranProbability(){ //产生随机化组编译选项，返回一个指向结构体一元数组的指针，即产生的随机化组编译选项
 
 	Read();//函数将文件中的编译选项读取到数组中
-	x = randNext(0,213); //随机化产生一个x
+	x = randNext(0,N); //随机化产生一个x
 	int f = 0;
 	int i,j,h,l,k,p; 
 	float sum,n,average; //average为概率的平均值,sum为所有编译选项概率的和
 	h=0;l=0;sum=0,k = 0;
 	
 	//概率初始化
-	for(i=0,n=1;i<213;i++){
+	for(i=0,n=1;i<N;i++){
 		all_compile[i].odds=n;
 		n++;
 	}
 	
 	//从所有编译选项中随机选出X个编译选项: 开始让高概率和低概率相结合，到高概率组的编译选项的个数大于低概率组的个数时，只从高概率组随机选择
-	for(j=0; j<213; j++){ //计算出所有编译选项概率(权重)的平均值
+	for(j=0; j<N; j++){ //计算出所有编译选项概率(权重)的平均值
 		sum=sum + all_compile[j].odds;
 	}
-	average=sum/213;//概率的平均值
+	average=sum/N;//概率的平均值
 
 	//以概率平均值为指标，将所有编译选项分为高概率和低概率两组
-	for(i=0; i<213; i++){
+	for(i=0; i<N; i++){
 		if(all_compile[i].odds > average){
 			high_compile[h]=all_compile[i];
 			// printf("h=%d i=%d high++++++%s  all-----%s\n",h,i,high_compile[h].compile,all_compile[i].compile);
@@ -141,7 +142,7 @@ void ranProbability(){ //产生随机化组编译选项，返回一个指向结�
 				break;
 			}
 
-			f = randNext(0,213);
+			f = randNext(0,N);
 			// ran_compile[k]=high_compile[randNext(0,213)]; 
 			ran_compile[k]=high_compile[f];
 			// printf(" 3k = %d, rand = %d\n",k,f);
@@ -162,7 +163,7 @@ void add_opt() {
 			
 		}
 	for(int j = 0;j < x;j++){
-		for(int i = 0;i < 213;i++){
+		for(int i = 0;i < N;i++){
 			if(strcmp(all_compile[i].compile,ran_compile[j].compile) == 0)	{
 				all_compile[i].odds = ran_compile[j].odds;
 			}
@@ -178,7 +179,7 @@ void de_opt(){
 		}
 	}
 	for(int j = 0;j < x;j++){
-		for(int i = 0;i < 213;i++){ 
+		for(int i = 0;i < N;i++){ 
 			if(strcmp(all_compile[i].compile,ran_compile[j].compile) == 0)	{
 				all_compile[i].odds = ran_compile[j].odds;
 			}
