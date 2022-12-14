@@ -22,57 +22,23 @@ Compile all_compile[214]; //存放所有的编译选项
 Compile ran_compile[214]; //存放随机产生的x个编译选项 
 Compile high_compile[214]; //存放概率高的编译选项
 Compile low_compile[214]; //存放概率低的编译选项
-
-/*以下为所有的编译选项*/
-// char str[][50] = {"-faggressive-loop-optimizations","-falign-functions","-falign-jumps","-falign-labels","-falign-loops","-fassociative-math","-fasynchronous-unwind-tables","-fauto-inc-dec","-fbranch-count-reg","-fbranch-probabilities",
-// "-fbranch-target-load-optimize","-fbranch-target-load-optimize2","-fbtr-bb-exclusive","-fcaller-saves","-fcode-hoisting","-fcombine-stack-adjustments","-fcompare-elim","-fconserve-stack","-fcprop-registers","-fcrossjumping",
-// "-fcse-follow-jumps","-fcx-fortran-rules","-fcx-limited-range","-fdce","-fdefer-pop","-fdelayed-branch","-fdelete-dead-exceptions","-fdelete-null-pointer-checks","-fdevirtualize","-fdevirtualize-speculatively",
-// "-fdse","-fearly-inlining","-fexceptions","-fexpensive-optimizations","-ffinite-math-only","-ffloat-store","-fforward-propagate","-ffp-int-builtin-inexact","-ffunction-cse","-fgcse",
-// "-fgcse-after-reload","-fgcse-las","-fgcse-lm","-fgcse-sm","-fgraphite","-fgraphite-identity","-fguess-branch-probability","-fhoist-adjacent-loads","-fif-conversion","-fif-conversion2",
-// "-findirect-inlining","-finline","-finline-atomics","-finline-functions","-finline-functions-called-once","-finline-small-functions","-fipa-bit-cp","-fipa-cp","-fipa-cp-clone","-fipa-icf",
-// "-fipa-icf-functions","-fipa-icf-variables","-fipa-profile","-fipa-pta","-fipa-pure-const","-fipa-ra","-fipa-reference","-fipa-sra","-fipa-vrp","-fira-hoist-pressure",
-// "-fira-loop-pressure","-fira-region=[one|all|mixed][default]","-fira-share-save-slots","-fira-share-spill-slots","-fisolate-erroneous-paths-attribute","-fisolate-erroneous-paths-dereference","-fivopts","-fjump-tables","-fkeep-gc-roots-live","-flifetime-dse",
-// "-flimit-function-alignment","-flive-range-shrinkage","-floop-nest-optimize","-floop-parallelize-all","-flra-remat","-fmath-errno","-fmodulo-sched","-fmodulo-sched-allow-regmoves","-fmove-loop-invariants","-fnon-call-exceptions",
-// "-fnothrow-opt","-fomit-frame-pointer","-fopt-info","-foptimize-sibling-calls","-foptimize-strlen","-fpack-struct","-fpartial-inlining","-fpeel-loops","-fpeephole","-fpeephole2",
-// "-fplt","-fpredictive-commoning","-fprefetch-loop-arrays","-fprintf-return-value","-freciprocal-math","-freg-struct-return","-frename-registers","-freorder-blocks","-freorder-blocks-and-partition","-freorder-functions",
-// "-frerun-cse-after-loop","-freschedule-modulo-scheduled-loops","-frounding-math","-frtti","-fsched-critical-path-heuristic","-fsched-dep-count-heuristic","-fsched-group-heuristic","-fsched-interblock","-fsched-last-insn-heuristic","-fsched-pressure",
-// "-fsched-rank-heuristic","-fsched-spec","-fsched-spec-insn-heuristic","-fsched-spec-load","-fsched-spec-load-dangerous","-fsched-stalled-insns","-fsched-stalled-insns-dep","-fsched2-use-superblocks","-fschedule-fusion","-fschedule-insns",
-// "-fschedule-insns2","-fsection-anchors","-fsel-sched-pipelining","-fsel-sched-pipelining-outer-loops","-fsel-sched-reschedule-pipelined","-fselective-scheduling","-fselective-scheduling2","-fshort-enums","-fshort-wchar","-fshrink-wrap",
-// "-fshrink-wrap-separate","-fsignaling-nans","-fsigned-zeros","-fsingle-precision-constant","-fsplit-ivs-in-unroller","-fsplit-loops","-fsplit-paths","-fsplit-wide-types","-fssa-backprop","-fssa-phiopt",
-// "-fstack-protector","-fstack-protector-all","-fstack-protector-explicit","-fstack-protector-strong","-fstdarg-opt","-fstore-merging","-fstrict-aliasing","-fstrict-enums","-fstrict-overflow","-fstrict-volatile-bitfields",
-// "-fthread-jumps","-fno-threadsafe-statics","-ftracer","-ftrapping-math","-ftrapv","-ftree-bit-ccp","-ftree-builtin-call-dce","-ftree-ccp","-ftree-ch","-ftree-coalesce-vars",
-// "-ftree-copy-prop","-ftree-cselim","-ftree-dce","-ftree-dominator-opts","-ftree-dse","-ftree-forwprop","-ftree-fre","-ftree-loop-distribute-patterns","-ftree-loop-distribution","-ftree-loop-if-convert",
-// "-ftree-loop-im","-ftree-loop-ivcanon","-ftree-loop-optimize","-ftree-loop-vectorize","-ftree-lrs","-ftree-partial-pre","-ftree-phiprop","-ftree-pre","-ftree-pta","-ftree-reassoc",
-// "-ftree-scev-cprop","-ftree-sink","-ftree-slp-vectorize","-ftree-slsr","-ftree-sra","-ftree-switch-conversion","-ftree-tail-merge","-ftree-ter","-ftree-vectorize","-ftree-vrp",
-// "-funconstrained-commons","-funroll-all-loops","-funroll-loops","-funsafe-math-optimizations","-funswitch-loops","-funwind-tables","-fvar-tracking","-fvar-tracking-assignments","-fvar-tracking-assignments-toggle","-fvar-tracking-uninit",
-// "-fvariable-expansion-in-unroller","-fvpt","-fweb","-fwrapv"};
-/*以下为失能的编译选项*/
-// char reenable[95][50] = {"-falign-labels","-fno-branch-count-reg","-fno-caller-saves","-fno-code-hoisting","-fno-combine-stack-adjustments","-fno-compare-elim","-fno-cprop-registers","-fno-crossjumping","-fno-cse-follow-jumps",
-// 	"-fno-dce","-fno-defer-pop","-fno-devirtualize","-fno-devirtualize-speculatively","-fno-dse","-fno-expensive-optimizations","-fno-forward-propagate","-fno-gcse","-fno-gcse-after-reload","-fno-guess-branch-probability","-fno-hoist-adjacent-loads",
-// 	"-fno-if-conversion","-fno-if-conversion2","-fno-indirect-inlining","-fno-inline","-fno-inline-functions","-fno-inline-functions-called-once","-fno-inline-small-functions","-fno-ipa-bit-cp","-fno-ipa-cp-clone","-fno-ipa-icf","-fno-ipa-icf-functions",
-// 	"-fno-ipa-icf-variables","-fno-ipa-profile","-fno-ipa-pure-const","-fno-ipa-ra","-fno-ipa-reference","-fno-ipa-sra","-fno-ipa-vrp","-fno-isolate-erroneous-paths-dereference","-fno-jump-tables","-fno-ipa-cp","-fno-lra-remat","-fno-move-loop-invariants",
-// 	"-fno-omit-frame-pointer","-fno-optimize-sibling-calls","-fno-optimize-strlen","-fno-partial-inlining","-fno-peel-loops","-fno-peephole2","-fno-predictive-commoning","-fno-printf-return-value","-fno-rename-registers","-fno-reorder-blocks",
-// 	"-fno-reorder-blocks-and-partition","-fno-reorder-functions","-fno-rerun-cse-after-loop","-fno-rtti","-fno-schedule-insns2","-fno-short-enums","-fno-shrink-wrap","-fno-split-loops","-fno-split-paths","-fno-ssa-phiopt","-fno-store-merging",
-// 	"-fno-strict-aliasing","-fno-strict-overflow","-fno-thread-jumps","-fthreadsafe-statics","-fno-tree-bit-ccp","-fno-tree-builtin-call-dce","-fno-tree-ccp","-fno-tree-ch","-fno-tree-coalesce-vars","-fno-tree-copy-prop","-fno-tree-dce","-fno-tree-dominator-opts",
-// 	"-fno-tree-dse","-fno-tree-fre","-fno-tree-loop-distribute-patterns","-fno-tree-loop-vectorize","-fno-tree-partial-pre","-fno-tree-pre","-fno-tree-pta","-fno-tree-sink","-fno-tree-slp-vectorize","-fno-tree-slsr","-fno-tree-sra","-fno-tree-switch-conversion",
-// 	"-fno-tree-tail-merge","-fno-tree-ter","-fno-tree-vrp","-fno-unswitch-loops","-fno-var-tracking","-fno-var-tracking-assignments","-fno-web"};
-
-
+double acc = 0.0;
+int total = 1;
 /*从文件中获取编译选项*/
 int Read()//函数将文件中的编译选项读取到数组中 
 {
 	FILE* fpread;
-	fpread = fopen("/home/huan/Desktop/P/AFL_replace_mutate/1.txt", "r"); //路径改成自己真实路径
+	fpread = fopen("/home/huan/Desktop/P/AFL_replace_mutate/1.txt", "r");
 	if (fpread == NULL)//文件不存在
 	{
 		printf("\nfile is error.\n");
 		return -1;
 	}
 	
-	for (int i = 0; i < 214; i++)//文件存在将文件中数据读入到数组中 
+	for (int i = 0; i < 213; i++)//文件存在将文件中数据读入到数组中 
 	{
 		fscanf(fpread, "%s",all_compile[i].compile);
-		printf("11\n");
+		// printf("11\n");
 	}
 	
 	fclose(fpread);//关闭文件 
@@ -102,21 +68,10 @@ int randNext(int left, int right)
 }
 
 void ranProbability(){ //产生随机化组编译选项，返回一个指向结构体一元数组的指针，即产生的随机化组编译选项
-	
-	//组编译选项数组初始化
-	// for(int k = 0;k < 213;k++){
-	// 	strcpy(all_compile[k].compile,str[k]);//将str中的字符串，复制给all_compile.compile
-	// }
 
 	Read();//函数将文件中的编译选项读取到数组中
-
-	printf("start~~~~~~~~~~~~~~end\n");
-	for(int i = 0; i < 214; i++){
-		printf("all=%s\n",all_compile[i].compile);
-	}
-
-//	srand((unsigned)time(NULL)); //产生随机化的种子
 	x = randNext(0,213); //随机化产生一个x
+	int f = 0;
 	int i,j,h,l,k,p; 
 	float sum,n,average; //average为概率的平均值,sum为所有编译选项概率的和
 	h=0;l=0;sum=0,k = 0;
@@ -137,46 +92,60 @@ void ranProbability(){ //产生随机化组编译选项，返回一个指向结�
 	for(i=0; i<213; i++){
 		if(all_compile[i].odds > average){
 			high_compile[h]=all_compile[i];
-//			printf("++++++%s-----%s\n",high_compile[h].compile,all_compile[i].compile);
+			// printf("h=%d i=%d high++++++%s  all-----%s\n",h,i,high_compile[h].compile,all_compile[i].compile);
 			h++;
 		}
 		else{
 			low_compile[l]=all_compile[i];
-//			printf("++++++%s-----%s\n",low_compile[l].compile,all_compile[i].compile);
+			// printf("l=%d i=%d low++++++%s  all-----%s\n",l,i,low_compile[l].compile,all_compile[i].compile);
 			l++;
 		}
 	}
 	
+	
+
 	if(h<l){//如果高概率组的编译选项的个数小于低概率组的个数，则分别在高概率和低概率两组中随机选择编译选项
 		for(k=0; k<x/2; k++){
-			if(high_compile[0].compile[0] == NULL){
-//				printf("highΪ��\n");
+			if(high_compile[0].compile == NULL){
+				printf("high kong\n");
 				break;
 			}
-			ran_compile[k]=high_compile[randNext(0,213)]; 
+			f = randNext(0,h-1);
+			// ran_compile[k]=high_compile[randNext(0,213)];
+			ran_compile[k]=high_compile[f]; 
+			// printf("1k = %d, rand = %d\n",k,f);
 //			printf("++++++%s-----%s\n",ran_compile[k].compile,"12344333222");
 			ded(k);
 		}
-		if(high_compile[0].compile[0] == NULL){
+		if(high_compile[0].compile == NULL){
 			k = 0;
 		}
 //		printf("--k = %d\n",k);
 		for(p=k; p<x; p++){
-			if(low_compile[0].compile[0] == NULL){
+			if(low_compile[0].compile == NULL){
 //				printf("lowΪ��\n");
 				break;
 			}
-			ran_compile[p]=low_compile[randNext(0,213)]; 
+
+			f = randNext(0,l-1);
+			// ran_compile[p]=low_compile[randNext(0,213)]; 
+			ran_compile[p]=low_compile[f];
+			// printf(" 2k = %d, rand = %d\n",p,f);
 //			printf("ran_[%d]++++++%s-----%s\n",p,ran_compile[p].compile,"12344333222");
 			ded(p);
 		}
 	}
 	else{//如果高概率组的编译选项的个数大于低概率组的个数，只在高概率组中选择x个编译选项
 		for(k=0; k<x; k++){
-			if(high_compile[0].compile[0] == '\0'){
+			if(high_compile[0].compile == NULL){
 				break;
 			}
-			ran_compile[k]=high_compile[randNext(0,213)]; 
+
+			f = randNext(0,213);
+			// ran_compile[k]=high_compile[randNext(0,213)]; 
+			ran_compile[k]=high_compile[f];
+			// printf(" 3k = %d, rand = %d\n",k,f);
+
 			ded(k);
 		}
 	}
@@ -218,65 +187,54 @@ void de_opt(){
 }
 
 /*Incorporate strings into parameters*/
-char** add(int m,char** argv0){
+char** add(int x,char** argv0){
 	/*make dis*/
+	/*初始化*/
 	char** p =  argv0;
 	char** p_argv;
-
-	int x = 0;
+	int m = 0;
 	int d = 0;
-	int disen = 0;
-	while(*p != '\0'){ //打印arg0数组中的元素
-
-		x++;
-		cout<<"----------argv----------"<<endl;
-		cout<<*p<<endl;
-		p = p + 1;
+	/*计算argv0数组元素个数*/
+	while(*p != NULL){
+		m++;
+		p++;	
 	}
-
-	//p = (char**)realloc(p_argv,sizeof(char*)*(disen+x+m+1));
-	p = (char**)realloc(p_argv,sizeof(char*)*(disen+x+m+1));//分配内存
+/*分配内存*/
+	p = (char**)realloc(p_argv,sizeof(char*)*(x+m+1));
 	if(p == NULL){  
-		//argv0 = p;
 		printf("add error\n");
 		return p;
 	}
 	p_argv = p;
 	/*Allocate memory*/
-	for(int i = 0;i < (x+m);i++){//分配内存
+	for(int i = 0;i < (x+m);i++){
 		p_argv[i] = (char*)malloc(sizeof(char)*60);
 	}
 	p = argv0;
 /*add 3*/
-	while(*p != '\0'){ //将argv0中的元素放入给p_argv
+/*将argv0数组中的元素传给p_argv*/
+	while(*p != '\0'){
 		p_argv[d] = *p; 
 		d++;
 		p = p + 1;
 	}
-	/*add disen*/
-	// for(int i = x;i < disen+x;i++){
-	// 	p_argv[i] = reenable[i-x];
-	// }
-/*将随机产生编译选项 放入p_argv中*/
-	for (int i = x+disen; i < (disen+x+m); i++)
+/*将随机选出的编译选项传给p_argv*/
+	for (int i = m; i < (x+m); i++)
 	{
 		/* code */
 
-		p_argv[i] = ran_compile[i-x-disen].compile;
-
-//		printf("------dayin------- : x = %d   %s\n",i-x,p_argv[i]);
+		p_argv[i] = ran_compile[i-m].compile;
 
 	}
-
-	
-//m 是argv0中的元素个数，x是随机产生编译选项的个数
-	printf("-------------over---------       m=%d x=%d x+m=%d\n",x,m,x+m);
-	p_argv[x+m+disen] = NULL;
+	/*x是随机产生编译选项的个数，m是argv0数组元素个数*/
+	printf("-------------over---------       x=%d m=%d x+m=%d\n",x,m,x+m);
+	p_argv[x+m] = NULL;
 	p = p_argv;
-	x = 0;
-	while(*p != NULL){ //打印p_argv数组中的元素
-		printf("pp = %s\n",p_argv[x]);
-		x++;
+	m = 0;
+	/*打印p_argv数组中的元素*/
+	while(*p != NULL){
+		printf("pp = %s\n",p_argv[m]);
+		m++;
 		p++;
 	}
 	return p_argv;

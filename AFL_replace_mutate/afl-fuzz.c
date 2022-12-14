@@ -4149,6 +4149,7 @@ static void show_stats(void) {
       SAYF(bV bSTOP "        run time : " cRST "%-34s " bSTG bV bSTOP
            "  cycles done : %s%-5s  " bSTG bV "\n",
            DTD(cur_ms, start_time), tmp, DI(queue_cycle - 1));
+           printf("tmp=%s\n",tmp);
 
       /* We want to warn people about not seeing new paths after a full cycle,
          except when resuming fuzzing or running in non-instrumented mode. */
@@ -4209,6 +4210,9 @@ static void show_stats(void) {
 
       sprintf(tmp, "%0.02f%% / %0.02f%%", ((double)queue_cur->bitmap_size) * 
               100 / MAP_SIZE, t_byte_ratio);
+      // [modity] 4start
+      acc = (((double)queue_cur->bitmap_size) * 100 / MAP_SIZE + acc*(total-1))/total;
+      total++;
 
       SAYF("    map density : %s%-21s " bSTG bV "\n", t_byte_ratio > 70 ? cLRD : 
            ((t_bytes < 200 && !dumb_mode) ? cPIN : cRST), tmp);
@@ -4222,6 +4226,11 @@ static void show_stats(void) {
               t_bytes ? (((double)t_bits) / t_bytes) : 0);
 
       SAYF(bSTOP " count coverage : " cRST "%-21s " bSTG bV "\n", tmp);
+//[modify] 4add
+      SAYF(bV bSTOP "                   " cRST "                  " bSTG bV, tmp);
+	sprintf(tmp, "%0.02f%% ",acc);
+      SAYF(bSTOP " compl coverage : " cRST "%-21s " bSTG bV "\n", tmp);
+// edd
 
       SAYF(bVR bH bSTOP cCYA " stage progress " bSTG bH20 bX bH bSTOP cCYA
            " findings in depth " bSTG bH20 bVL "\n");
@@ -6468,7 +6477,7 @@ int main(int argc, char** argv) {
   struct timezone tz;
   memset_count_array();
 
-//[modify] 4add
+//[] 4add
   ranProbability();
 //[modify] 4end
 
@@ -6750,6 +6759,7 @@ printf("+++++++++++++++++\n");
 
 // [modify] 4add
 perform_dry_run(p);
+free(p);
 //[modify] 4end
 
   cull_queue();
