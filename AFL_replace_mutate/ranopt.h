@@ -30,7 +30,7 @@ int total = 1;
 int Read()//函数将文件中的编译选项读取到数组中 
 {
 	FILE* fpread;
-	fpread = fopen("/home/cyd/桌面/编译选项/opt-O2.txt", "r");
+	fpread = fopen("/home/cyd/桌面/编译选项/opt-O2.txt", "r");//改成对应路径
 	if (fpread == NULL)//文件不存在
 	{
 		printf("\nfile is error.\n");
