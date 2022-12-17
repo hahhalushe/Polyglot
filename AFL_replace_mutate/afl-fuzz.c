@@ -4149,7 +4149,7 @@ static void show_stats(void) {
       SAYF(bV bSTOP "        run time : " cRST "%-34s " bSTG bV bSTOP
            "  cycles done : %s%-5s  " bSTG bV "\n",
            DTD(cur_ms, start_time), tmp, DI(queue_cycle - 1));
-           printf("tmp=%s\n",tmp);
+      //printf("tmp=%s\n",tmp);
 
       /* We want to warn people about not seeing new paths after a full cycle,
          except when resuming fuzzing or running in non-instrumented mode. */
